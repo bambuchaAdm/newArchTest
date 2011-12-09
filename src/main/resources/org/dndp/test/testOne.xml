@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<my:MyTwoTextSubmitWindow title="Simple Window"
+	maximized="true" xmlns:bxml="http://pivot.apache.org/bxml"
+	xmlns:my="org.dndp.test"
+	xmlns="org.apache.pivot.wtk" >
+	<BoxPane orientation="VERTICAL">
+		<BoxPane styles="{padding:4}">
+			<TextInput bxml:id="one" />
+			<TextInput bxml:id="two" />
+			<PushButton bxml:id="submit" buttonData="Submit." />
+		</BoxPane>
+		<BoxPane styles="{padding:4}">
+			<TextInput bxml:id="firstResponse" enabled="false"/>
+			<TextInput bxml:id="secondResponse" enabled="false"/>
+			<PushButton bxml:id="dump" buttonData="Dump." />
+		</BoxPane>
+	</BoxPane>
+</my:MyTwoTextSubmitWindow>

@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.dndp</groupId>
+	<artifactId>newArchTest</artifactId>
+	<version>1</version>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/http</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.1</version>
+				<configuration>
+					<outputDirectory>${project.build.directory}/http</outputDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<id>copy-to-http</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/http</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+	</build>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.jetty.aggregate</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>7.5.4.v20111024</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pivot</groupId>
+			<artifactId>pivot-wtk-terra</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty.aggregate</groupId>
+			<artifactId>jetty-servlet</artifactId>
+			<version>7.5.4.v20111024</version>
+		</dependency>
+	</dependencies>
+
+</project>
