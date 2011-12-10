@@ -51,4 +51,39 @@ public class MyTwoTextSubmitWindow extends Window implements Bindable
 		});
 
 	}
+
+	/**
+	 * @return the submit
+	 */
+	public PushButton getSubmit()
+	{
+		return submit;
+	}
+
+	/**
+	 * @param submit
+	 *            the submit to set
+	 */
+	public void setSubmit(PushButton submit)
+	{
+		this.submit = submit;
+	}
+
+	/**
+	 * @return the dump
+	 */
+	public PushButton getDump()
+	{
+		return dump;
+	}
+
+	/**
+	 * @param dump
+	 *            the dump to set
+	 */
+	public void setDump(PushButton dump)
+	{
+		this.dump = dump;
+	}
+
 }
