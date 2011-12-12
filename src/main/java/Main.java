@@ -11,7 +11,7 @@ public class Main
 		Server server = new Server(8080);
 		ResourceHandler rHandler = new ResourceHandler();
 		rHandler.setDirectoriesListed(true);
-		rHandler.setResourceBase("target/http");
+		rHandler.setResourceBase(".");
 		rHandler.setWelcomeFiles(new String[] { "index.html" });
 		ServletContextHandler context = new ServletContextHandler(
 				ServletContextHandler.SESSIONS);
