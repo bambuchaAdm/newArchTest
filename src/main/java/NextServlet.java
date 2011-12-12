@@ -1,5 +1,7 @@
 import java.net.URL;
 
+import javax.servlet.ServletException;
+
 import org.apache.pivot.serialization.BinarySerializer;
 import org.apache.pivot.serialization.Serializer;
 import org.apache.pivot.web.QueryException;
@@ -10,6 +12,12 @@ import org.dndp.beans.Atrybut;
 public class NextServlet extends QueryServlet
 {
 	private Atrybut	atr;
+
+	@Override
+	public void init() throws ServletException
+	{
+		atr = new Atrybut(2, 5);
+	}
 
 	@Override
 	protected Object doGet(Path path) throws QueryException

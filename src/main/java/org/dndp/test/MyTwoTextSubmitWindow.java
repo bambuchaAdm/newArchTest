@@ -13,7 +13,15 @@ import java.util.logging.Logger;
 import org.apache.pivot.beans.BeanAdapter;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
+import org.apache.pivot.serialization.BinarySerializer;
+import org.apache.pivot.serialization.Serializer;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.util.concurrent.Task;
+import org.apache.pivot.util.concurrent.TaskListener;
+import org.apache.pivot.web.GetQuery;
+import org.apache.pivot.web.PostQuery;
+import org.apache.pivot.web.QueryException;
+import org.apache.pivot.wtk.Alert;
 import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
@@ -82,73 +90,50 @@ public class MyTwoTextSubmitWindow extends Window implements Bindable
 		}
 		submit.getButtonPressListeners().add(new ButtonPressListener()
 		{
-
 			public void buttonPressed(Button button)
 			{
-				HttpURLConnection con = null;
-				ObjectOutputStream stream = null;
+				PostQuery post = new PostQuery("localhost", 8080, "/s/n", false);
+				post.setSerializer(new BinarySerializer()); // Domyślny to JSON
+				show.store(new BeanAdapter(atr));
+				post.setValue(atr);
 				try
 				{
+					post.execute(); // Wywołanie synchroniczne
+				}
+				catch(QueryException e)
+				{
+					Alert.alert(
+							"Nie powiodła się publickacja\n"
+									+ e.getLocalizedMessage(),
+							MyTwoTextSubmitWindow.this);
+				}
 
-					con = (HttpURLConnection)url.openConnection();
-					con.setRequestMethod("POST");
-					con.setDoOutput(true);
-					stream = new ObjectOutputStream(con.getOutputStream());
-					if(atr == null)
-						atr = new Atrybut();
-					show.store(atr);
-					stream.writeObject(atr);
-					con.connect();
-					second.setText(con.getResponseMessage());
-				}
-				catch(IOException e)
-				{
-					log.log(Level.SEVERE, "Wyjątek", e);
-				}
-				finally
-				{
-					try
-					{
-						stream.close();
-					}
-					catch(IOException e)
-					{
-						log.log(Level.SEVERE, "Wyjątek", e);
-					}
-					con.disconnect();
-				}
 			}
 		});
 		dump.getButtonPressListeners().add(new ButtonPressListener()
 		{
 			public void buttonPressed(Button button)
 			{
-				ObjectInputStream in = null;
-				HttpURLConnection con = null;
+				GetQuery get = new GetQuery("localhost", 8080, "/s/n", false);
+				get.setSerializer(new BinarySerializer()); // Jak poprzednio
+				get.execute(new TaskListener<Object>()
+				{
+					// Wywołanie asynchroniczne
+					@Override
+					public void executeFailed(Task<Object> task)
+					{
+						Alert.alert("Nie można pobrać danych\n"
+								+ task.getFault().getMessage(),
+								MyTwoTextSubmitWindow.this);
+					}
 
-				try
-				{
-					con = (HttpURLConnection)url.openConnection();
-					con.setDoInput(true);
-					con.connect();
-					in = new ObjectInputStream(con.getInputStream());
-					atr = (Atrybut)in.readObject();
-					show.load(new BeanAdapter(atr));
-					in.close();
-
-				}
-				catch(IOException e)
-				{
-					log.log(Level.SEVERE, "Wyjątek", e);
-				}
-				catch(ClassNotFoundException e)
-				{
-					log.log(Level.SEVERE, "Wyjątek", e);
-				}
-				finally
-				{
-					con.disconnect();
-				}
+					@Override
+					public void taskExecuted(Task<Object> task)
+					{
+						atr = (Atrybut)task.getResult();
+						show.load(new BeanAdapter(atr));
+					}
+				});
 			}
 		});
 

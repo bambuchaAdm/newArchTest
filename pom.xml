@@ -86,6 +86,11 @@
 			<artifactId>jetty-servlet</artifactId>
 			<version>7.5.4.v20111024</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.pivot</groupId>
+			<artifactId>pivot-web</artifactId>
+			<version>2.0</version>
+		</dependency>
 	</dependencies>
 
 </project>
