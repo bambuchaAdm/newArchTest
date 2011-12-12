@@ -27,6 +27,12 @@
 				<version>2.3.1</version>
 				<configuration>
 					<outputDirectory>${project.build.directory}/http</outputDirectory>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>Main</mainClass>
+						</manifest>
+					</archive>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -46,17 +52,20 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
 
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
-
 	<dependencies>
-		<dependency>
-			<groupId>org.eclipse.jetty.aggregate</groupId>
-			<artifactId>jetty-server</artifactId>
-			<version>7.5.4.v20111024</version>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.pivot</groupId>
 			<artifactId>pivot-wtk-terra</artifactId>
@@ -64,8 +73,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty.aggregate</groupId>
-			<artifactId>jetty-servlet</artifactId>
+			<artifactId>jetty-all-server</artifactId>
 			<version>7.5.4.v20111024</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pivot</groupId>
+			<artifactId>pivot-web-server</artifactId>
+			<version>2.0</version>
 		</dependency>
 	</dependencies>
 

@@ -1,13 +1,10 @@
 package org.dndp.test;
-import javax.sql.rowset.WebRowSet;
 
 import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.wtk.Application;
-import org.apache.pivot.wtk.BrowserApplicationContext;
 import org.apache.pivot.wtk.DesktopApplicationContext;
 import org.apache.pivot.wtk.Display;
-import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.Window;
 
 public class SilmpleApp implements Application
