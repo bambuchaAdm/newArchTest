@@ -94,6 +94,8 @@ public class MyTwoTextSubmitWindow extends Window implements Bindable
 			{
 				PostQuery post = new PostQuery("localhost", 8080, "/s/n", false);
 				post.setSerializer(new BinarySerializer()); // Domyślny to JSON
+				if(atr == null)
+					atr = new Atrybut();
 				show.store(new BeanAdapter(atr));
 				post.setValue(atr);
 				try
